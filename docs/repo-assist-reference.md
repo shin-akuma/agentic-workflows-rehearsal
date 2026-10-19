@@ -263,6 +263,15 @@ If an expected issue is missing, inspect `DIFC_FILTERED` events in gateway logs
 before weakening the policy. Compiler strict mode is a separate configuration
 validation feature; "permissive" and "strict" are not `min-integrity` values.
 
+In the 2026-10-19 rehearsal, GitHub reported the seeded issue author as `OWNER`,
+but the gateway assigned those issues `none:public` and filtered them at the
+default `approved` threshold. The documented classifications above are not a
+substitute for checking the actual gateway result. After explicit approval, Labs
+1 and 2 use `min-integrity: none`, `bash: false`, and `cli-proxy: false` to read
+the workshop issues through MCP without shell tools. Their read-only permissions,
+output caps, and trigger restrictions remain in place. Do not automatically
+weaken a production policy when investigating missing content.
+
 Say aloud:
 
 > Minimum integrity controls which GitHub content the agent sees. None lets us triage

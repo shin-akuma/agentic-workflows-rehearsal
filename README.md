@@ -241,7 +241,7 @@ git push
 ```
 
 Open your escalation-contact issue and post `/issue-helper`. Inspect the reply.
-Then post `/issue-helper create-follow-up` and inspect the new follow-up issue.
+Then post `/issue-helper create-follow-up` and inspect any new or reused issue.
 The command must be first in a new comment, and the lock file must be on the
 default branch before you post it.
 
@@ -252,6 +252,10 @@ read. Do not set `on.roles: all` to work around a failed command.
 
 Success: one substantive comment per run, and at most one follow-up issue when
 requested. Framework status comments are separate from the agent's comment cap.
+
+Review relevance and duplicates independently of the run status. In rehearsal,
+the helper created a bounded follow-up that duplicated the existing hours issue.
+Output caps limit quantity; they do not guarantee correct scope or deduplication.
 
 Inspect the generated issue, comment, and PR triggers. The default command trigger
 can appear as a PR check even when the command does not match and the agent skips.

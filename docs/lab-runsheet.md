@@ -80,6 +80,12 @@ Follow [Lab 1 instructions](../README.md#lab-1-your-first-workflow).
 Success: a successful run and one summary issue grounded in the seeded activity.
 The issue should contain progress, open questions, and next steps, not invented events.
 
+Check the content, not only the run status: it must actually reference the seeded
+issues. The workshop uses `min-integrity: none` with `bash: false` and
+`cli-proxy: false` because the default integrity filter hid seeded issues in
+rehearsal. Explain this deliberate untrusted-input choice; it does not grant
+write permissions. See the [integrity reference](repo-assist-reference.md#minimum-integrity-which-content-reaches-the-agent).
+
 During the Actions inspection, point out the
 [threat-detection job](repo-assist-reference.md#threat-detection-review-before-publication)
 between agent execution and safe outputs. Check its verdict and enforcement policy;
