@@ -282,6 +282,21 @@ Before compiling or pushing, edit `.github/workflows/repo-assist.md`:
 * Set the `create-pull-request`, `push-to-pull-request-branch`, and `create-issue` safe-output `max` values to `1`
 * Set `add-comment.max` to `3`, `add-labels.max` to `5`, and `remove-labels.max` to `1`
 
+Replace the imported `Initialize Repo Assist memory` step with this version.
+The workshop compiler removed a trailing `null` from the original JSON heredoc
+in rehearsal; generating JSON with `jq` preserves both cursor values:
+
+```yaml
+  - name: Initialize Repo Assist memory
+    env:
+      MEMORY_DIR: /tmp/gh-aw/repo-memory/default
+    run: |
+      if [[ ! -f "$MEMORY_DIR/notes.json" ]]; then
+        jq -n '{version: 1, cursors: {labelling_after: null, investigation_after: null}, issues: [], fixes: [], checks: [], completed_actions: [], priorities: []}' > "$MEMORY_DIR/notes.json"
+      fi
+      jq empty "$MEMORY_DIR/notes.json"
+```
+
 Read the imported tools, permissions, memory validator, and safe outputs. The
 memory validator checks one local JSON file's shape and size limits; it does not
 send it to an external service. The workshop copy retains the upstream memory
@@ -302,11 +317,13 @@ git push
 On either seeded issue, post:
 
 ```text
-/repo-assist Run Task 1 only. Do not change files or open pull requests.
+/repo-assist Run Task 1 only. Do not change repository source files or open pull requests. Retain the required repo-memory validation and persistence steps.
 ```
 
 Success: Repo Assist labels the workshop issues. Command mode skips weighted
 task selection and the Monthly Activity report. A report is not expected here.
+Also verify that the memory validation and push jobs succeed; labels can be
+published even when memory validation fails later in the run.
 
 ### Optional Code Fix
 
